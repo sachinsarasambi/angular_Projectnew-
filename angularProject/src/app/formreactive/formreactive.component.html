@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-left rounded shadow ps-y">
+            <form [formGroup]="myForm" (ngSubmit)="OnSubmit()">
+                <!-- //neasted FormGroup use to username and email. -->
+                <div formGroupName="userDetails">
+                <div class="form-group">
+                    <label>User Name</label>
+                    <input type="text" class="form-control" iemaild="username" formControlName="username" placeholder="enter user name">
+                    <small class="text-denger" *ngIf="!myForm.get('userDetails.username').valid && myForm.get('userDetails.username').touched">
+                    
+                        <small *ngIf="myForm.get('userDetails.username').errors['required']">Please enter user name</small>                  
+                        <small *ngIf="myForm.get('userDetails.username').errors['namesNotAllowed']">user name not allowed {{myForm.get('userDetails.username').value}}</small>                  
+  
+                    </small>
+
+
+                </div>
+                <div class="form-group">
+                    <label>Email ID</label>
+                    <input type="text" class="form-control" id="email" formControlName="email" placeholder="enter email name">
+                    <small class="text-denger" *ngIf="!myForm.get('userDetails.email').valid && myForm.get('userDetails.email').touched">plese enter valid email</small>
+                </div>
+                </div>
+                    <div class="form-group">
+                      
+                        <label for="course">select course</label>
+                        <select  class="form-control"  formControlName="course" id="course">
+                            <option value="Angular">Angular</option>
+                            <option value="HTML">HTML</option>
+                            <option value="JavaScript">JavaScript</option>
+                        </select>
+                    </div>
+                    <div  class="form-group">
+                        <label>Gender</label>
+                        <div class="coustom-control coustom-radio" *ngFor=" let gender of  genders ">
+                            <input type="radio" id="{{gender.id}}" value="{{gender.value}}" class="custom-control-input"  formControlName="gender" >
+
+                          <label for="{{gender.id}}">{{gender.value}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group" formArrayName="skills">
+                        <label>skills</label>
+                        <ng-container *ngFor="let skill of this.myForm.get('skills'). controls; index as i">
+                            <input type="text" class="form-control mt-2 " formControlName="{{i}}" placeholder="Add skills">
+                            <button type="button" (click)="removeskill(i)" mt-2  class="btn btn-danger">remove</button>
+                        </ng-container>
+                        <button class="btn btn-light btn-sm mt-2 btn-add" (click)="onAddSkills()"><i>+</i>Add skills</button>
+
+                    </div><br><br>
+
+                
+                 <button class="btn btn-success">submit</button>
+
+            </form>
+            </div>
+               <div class="row justify-content-center" *ngIf="submitted"> 
+                <div class="col-md-6 rounded shadow ps-y">
+                    <h2>Reactive form Data</h2>
+                    <p>User Name : <strong>{{myForm.get('userDetails.username').value}}</strong></p>
+                    <p>User Email : <strong>{{myForm.get('userDetails.email').value}}</strong></p>
+                    <p>Selected Courses  : <strong>{{myForm.get('course').value}}</strong></p>
+                    <p>Gender  : <strong>{{myForm.get('gender').value}}</strong></p>
+                    <p>skill  : <strong>{{myForm.get('skills').value}}</strong></p>
+
+
+
+            
+               </div>
+
+        </div>
+    </div>
+</div>
