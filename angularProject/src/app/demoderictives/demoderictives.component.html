@@ -1,0 +1,30 @@
+<p *ngIf="isShow">demoderictives works!</p>
+
+<div>
+    <div>
+        {{title}}
+    </div>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Derictor</th>
+                <th>Cast</th>
+                <th>ReleseDate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let movie of movies; let i =index; ">
+                {{i+1}}
+                <td>{{movie.title}}</td>
+                <td>{{movie.deractor}}</td>
+                <td>{{movie.cast}}</td>
+                <td>{{movie.releseDate}}</td>
+
+            </tr>
+        </tbody>
+
+    </table>
+</div>

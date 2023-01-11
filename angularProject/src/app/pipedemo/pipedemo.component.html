@@ -1,0 +1,25 @@
+<p>pipedemo works!</p>
+<div>
+<!-- Toda's Date: {{todaysdate | date : 'MM/dd/yyyy '}} -->
+<!-- chained pipe are use uppernmcase ,lower case --> 
+Toda's Date: {{todaysdate | date : 'fullDate' | uppercase}}
+
+</div>
+
+<div>
+    Get values :  {{ obser | async}}
+</div>
+
+<div>
+    Currency pipe: 
+    <div>
+        <!-- {{price | currency:'INR'}}<br>
+        {{price | currency:'USD'}}<br>
+        {{price | currency:'EUR'}}
+
+        {{obj | json}} -->
+        {{price | count}}
+
+    </div>
+  
+</div>

@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class DemoService {
 
-   apiurl='https://jsonplaceholder.typicode.com/users';
+   apiurl='https://jsonplaceholder.typicode.com/';
+   
   products=[
     {name:'laptop', id:'101'},
     {name:'mobile', id:'102'},
@@ -28,6 +29,14 @@ export class DemoService {
   getUsersData()
   {
     //fetch data
-     return this.http.get(this.apiurl);
+    let users ='users'
+     return this.http.get(this.apiurl + users);
+  }
+
+  getPostData()
+  {
+    let posts='posts'
+   return  this.http.get(this.apiurl + posts)
+
   }
 }

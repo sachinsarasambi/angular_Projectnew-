@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from './services/post.service';
 
 
 @Component({
@@ -8,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   //inject the service
-  constructor(){
+  constructor(private _postservice:PostService){
 
   }
+
   
   //get data from
   ngOnInit(): void {
@@ -18,4 +20,11 @@ export class AppComponent implements OnInit{
 
   }
   title = 'angularProject';
+
+  DeletePost(){
+    this._postservice.deletePostById(1).subscribe( res =>{
+      console.log(res);
+      
+    })
+  }
 }

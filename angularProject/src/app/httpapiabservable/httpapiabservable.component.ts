@@ -20,6 +20,11 @@ export class HttpapiabservableComponent implements OnInit {
       
     })
 
+    this._demoservice.getPostData().subscribe(results =>{
+      console.log('posts',results);
+      
+    });
+
   }
 
 }

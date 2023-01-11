@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { from, interval, Observable } from 'rxjs';
+import { FireBasePost } from '../models/firebasepost';
+import { FirebasepostService } from '../services/firebasepost.service';
+import { filter, map, take, takeLast, toArray } from 'rxjs/operators';
 
 
 
@@ -26,8 +29,8 @@ export class FormreactiveComponent implements OnInit {
     }
   ]
   myForm:FormGroup;
-
-  constructor(private _fb : FormBuilder) {
+  firebasePost:FireBasePost;
+  constructor(private _fb : FormBuilder , private _firebasepostService:FirebasepostService) {
     // this.myForm = new FormGroup({
     //   //To create neasted group group and control
     //   '':new FormGroup({
@@ -58,7 +61,78 @@ export class FormreactiveComponent implements OnInit {
    }
 
   ngOnInit() {
+//To use rxjs operator    
+
+  //   const data = from(this._firebasepostService.users);
+  //  // use RXJS oprator only get name from use rxjs operator
+  //   data.pipe(
+  //     map(x => x.name)
+  //     ).subscribe(res =>{
+  //       console.log('res',res ,' '+ 'data');
+        
+  //     })
+  
+    // data.subscribe(res =>{
+    //   console.log('example of from operator',res);
+      
+    // })
+
+
+    //filter operator
+
+    // const data = from(this._firebasepostService.users);
+    // data.pipe(
+    //   filter(u => u.gender == 'Female'),
+    //   toArray()
+    // ).subscribe(res =>{
+    //   console.log('filter operator',res);
+      
+    // }) 
+
+    //Take operator
+    // const sourse=interval(1000);
+    // sourse.pipe(
+    //   take(5)).subscribe(res =>{
+    //   console.log('interval example',res);
+      
+    // })
+
+    //take Last
+    let randamsName=['sachin','sandio','vinod','ajij','sidhu','javascript','html'];
+
+    const sourse =from (randamsName);
+    sourse.pipe(
+      takeLast(2)
+    ).subscribe(res =>{
+      console.log('Take last operation',res);
+      
+    })
+
+
+
+//get post data from servor to dom firebse  and use  map rxjs operator.
+
+    // this._firebasepostService.getPostDataFirebase().pipe(
+    //   map(responseData =>{
+    //     //empty Array
+    //     const postArray=[];
+    //     //forin loop
+    //     for(const key in responseData){
+    //       //check key
+    //       if (responseData .hasOwnProperty(key)) {
+    //         //push new value into array
+    //         postArray.push({...responseData[key],id:key})
+    //       }
+    //     }
+    //     return postArray;
+    //   })
+    // )
+
+    // .subscribe(res =>{
+    //   console.log('After maniolate data',res);
+    //   })
     
+
   //  setTimeout(() =>{
   //   this.myForm.setValue({
   //     'userDetails' : {
@@ -91,7 +165,20 @@ export class FormreactiveComponent implements OnInit {
 
   OnSubmit(){
     this.submitted=true;
-    console.log(this.myForm);
+    // console.log(this.myForm);
+
+  this.firebasePost=new FireBasePost(); 
+  this.firebasePost.username = this.myForm['controls'].userDetails['controls'].username.value;
+  this.firebasePost.email = this.myForm['controls'].userDetails['controls'].email.value;
+  this.firebasePost.course = this.myForm['controls'].course.value;
+  this.firebasePost.gender = this.myForm['controls'].gender.value;
+  this.firebasePost.skills = this.myForm['controls'].skills.value;
+  // console.log('firebse post class',this.firebasePost);
+  
+ this._firebasepostService.createPostDataReactiveForm(this.firebasePost).subscribe(res =>{
+  console.log('post from reactive form',res);
+  
+ })
 
 }
 onAddSkills(){

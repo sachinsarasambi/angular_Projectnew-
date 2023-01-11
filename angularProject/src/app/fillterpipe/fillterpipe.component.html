@@ -1,0 +1,29 @@
+<p>fillterpipe works!</p>
+
+
+<div class="row justify-content-center">
+    <div>
+        <label for="productid">Search by product</label>
+        <input type="text" class="form-control" id="productid" placeholder="Enter product name" [(ngModel)]="namesearch">
+    </div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">srNo</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Availability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of produtArray | fillter :namesearch">
+                    <th scope="row">{{product.Srno}}</th>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.availability}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
